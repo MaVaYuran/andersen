@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Ticket {
-    private String ID;
+    private int id;
     private String concertHall;
     private int eventCode;
     private String time;
@@ -25,9 +25,9 @@ public class Ticket {
         this.time = getTime();
     }
 
-    public Ticket(String concertHall, int eventCode, boolean isPromo,
+    public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
-        this.ID = generateID();
+        this.id = id;
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.time = getTime();
@@ -42,7 +42,6 @@ public class Ticket {
         String dateTime = dtf.format(LocalDateTime.now());
         return dateTime;
     }
-
 
 
     static String generateID() {
@@ -61,14 +60,14 @@ public class Ticket {
         return sb.toString();
     }
 
-    public String getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
-               "ID = '" + ID + '\'' +
+               "ID = '" + id + '\'' +
                ", concertHall = '" + concertHall + '\'' +
                ", eventCode = " + eventCode +
                ", time = '" + time + '\'' +
