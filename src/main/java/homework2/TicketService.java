@@ -1,7 +1,7 @@
 package homework2;
 
 public class TicketService {
-    private static final int ID = 1;
+    private static final String ID = "1";
     public static void main(String[] args) {
 
         Ticket fullTicket = new Ticket(ID,"Plaza", 290, false, Sector.A, 25.00f, 15.99);

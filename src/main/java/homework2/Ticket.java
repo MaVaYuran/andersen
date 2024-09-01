@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Ticket {
-    private int id;
+    private String id;
     private String concertHall;
     private int eventCode;
     private String time;
@@ -25,7 +25,7 @@ public class Ticket {
         this.time = getTime();
     }
 
-    public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
+    public Ticket(String id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         this.id = id;
         this.concertHall = concertHall;
@@ -60,7 +60,7 @@ public class Ticket {
         return sb.toString();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
