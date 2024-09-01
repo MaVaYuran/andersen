@@ -1,48 +1,48 @@
 package homework2;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Ticket {
-    private String ID;
+    private String id;
     private String concertHall;
     private int eventCode;
-    private Date time;
+    private String time;
 
     private boolean isPromo;
     private Sector sector;
     private float maxWeight;
 
+    private double price;
+
     public Ticket() {
     }
 
-    public Ticket(String concertHall) {
+    public Ticket(String concertHall, int eventCode) {
         this.concertHall = concertHall;
-        this.eventCode = generateEventCode();
-        this.time = getUnixTime();
+        this.eventCode = eventCode;
+        this.time = getTime();
     }
 
-    public Ticket(String concertHall, boolean isPromo,
-                  Sector sector, Float maxWeight) {
-        this.ID = generateID();
+    public Ticket(String id, String concertHall, int eventCode, boolean isPromo,
+                  Sector sector, Float maxWeight, double price) {
+        this.id = id;
         this.concertHall = concertHall;
-        this.eventCode = generateEventCode();
-        this.time = getUnixTime();
+        this.eventCode = eventCode;
+        this.time = getTime();
         this.isPromo = isPromo;
         this.sector = sector;
         this.maxWeight = maxWeight;
+        this.price = price;
     }
 
-    private Date getUnixTime() {
-        Date time = new Date();
-        return time;
+    private String getTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm");
+        String dateTime = dtf.format(LocalDateTime.now());
+        return dateTime;
     }
 
-    private int generateEventCode() {
-        Random random = new Random();
-        int code = random.nextInt(900) + 100;
-        return code;
-    }
 
     static String generateID() {
         Random random = new Random();
@@ -60,20 +60,21 @@ public class Ticket {
         return sb.toString();
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     @Override
     public String toString() {
         return "Ticket{" +
-               "ID='" + ID + '\'' +
-               ", concertHall='" + concertHall + '\'' +
-               ", eventCode=" + eventCode +
-               ", time=" + time +
-               ", isPromo=" + isPromo +
-               ", sector=" + sector +
-               ", maxWeight=" + maxWeight +
+               "ID = '" + id + '\'' +
+               ", concertHall = '" + concertHall + '\'' +
+               ", eventCode = " + eventCode +
+               ", time = '" + time + '\'' +
+               ", isPromo = " + isPromo +
+               ", sector = " + sector +
+               ", maxWeight = " + maxWeight +
+               ", price = " + price +
                '}';
     }
 }
