@@ -43,23 +43,6 @@ public class Ticket {
         return dateTime;
     }
 
-
-    static String generateID() {
-        Random random = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < 4; i++) {
-            int randomChar = random.nextInt(36);
-
-            if (randomChar < 10) {
-                sb.append((char) ('0' + randomChar));
-            } else {
-                sb.append((char) ('A' + randomChar - 10));
-            }
-        }
-        return sb.toString();
-    }
-
     public String getId() {
         return id;
     }
