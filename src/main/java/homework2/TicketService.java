@@ -13,8 +13,10 @@ public class TicketService {
         for (int i = 1; i <= 10; i++) {
             if (i % 2 == 0) {
                 sector = Sector.A;
-            } else {
+            } else if (i % 5 == 0) {
                 sector = Sector.B;
+            } else {
+                sector = Sector.C;
             }
 
             String id = Integer.toString(count);
@@ -39,9 +41,5 @@ public class TicketService {
             }
         }
         return ticketsBySector;
-
-
     }
-
-
 }
