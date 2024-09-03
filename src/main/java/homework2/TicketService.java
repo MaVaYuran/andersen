@@ -1,20 +1,35 @@
 package homework2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TicketService {
-    private static final String ID = "1";
+    static List<Ticket> tickets = new ArrayList<>();
+
     public static void main(String[] args) {
 
-        Ticket fullTicket = new Ticket(ID,"Plaza", 290, false, Sector.A, 25.00f, 15.99);
-        Ticket limitedTicket = new Ticket("LaScala", 180);
-        Ticket emptyTicket = new Ticket();
+        int count = 1;
 
+        for (int i = 0; i < 10; i++) {
+            String id = Integer.toString(count);
+            Ticket ticket = new Ticket(id, "LaScala", (i+100), true, Sector.B, 10.0f, 9.99);
+            count++;
+            tickets.add(ticket);
+        }
 
+        System.out.println(tickets);
 
-        System.out.println("Full ticket:");
-        System.out.println(fullTicket);
-        System.out.println("Limited ticket:");
-        System.out.println(limitedTicket);
-        System.out.println("Empty ticket:") ;
-        System.out.println(emptyTicket);
+        System.out.println("Ticket from method: " + getTicketById("8"));
     }
+
+    static Ticket getTicketById(String id) {
+        for (Ticket ticket : tickets) {
+            if (id.equals(ticket.getId())) {
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+
 }
