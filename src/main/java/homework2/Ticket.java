@@ -43,9 +43,11 @@ public class Ticket {
         return dateTime;
     }
 
-    public String getId() {
-        return id;
+    public Sector getSector() {
+        return sector;
     }
+
+
 
     @Override
     public String toString() {
