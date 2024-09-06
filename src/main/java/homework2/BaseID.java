@@ -1,6 +1,16 @@
 package homework2;
 
 public abstract class BaseID {
-    public abstract int getId();
-    public abstract void setId(int id);
+    private int id;
+
+    public BaseID(int id) {
+        this.id = id;
+    }
+
+    public  int getId() {
+        return id;
+    };
+    public void setId(int id) {
+        this.id = id;
+    };
 }

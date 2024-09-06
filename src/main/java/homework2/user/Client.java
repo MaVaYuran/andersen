@@ -6,15 +6,7 @@ public class Client extends User {
     private int id;
     private Ticket ticket;
 
-    @Override
-    public int getId() {
-        return id;
-    }
 
-    @Override
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public void printRole() {
