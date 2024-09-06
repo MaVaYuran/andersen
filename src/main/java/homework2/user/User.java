@@ -1,6 +1,13 @@
 package homework2.user;
 
-public abstract class User {
+import homework2.BaseID;
+
+public abstract class User extends BaseID {
+    public abstract int getId();
+
+    private String phoneNumber;
+    private String email;
+
 
     public abstract void printRole();
 

@@ -1,16 +1,33 @@
 package homework2;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static homework2.Ticket.shared;
 
 public class TicketService {
     static List<Ticket> tickets = new ArrayList<>();
 
     public static void main(String[] args) {
+        final String phoneNumber = "37577777777";
+        final String email = "useremail@gmail.com";
+
+        generateTickets(10);
+        Random random = new Random();
+        int ticketNum = random.nextInt(10) + 1;
+        shared(phoneNumber, getTicketById(ticketNum));
+        shared(email, getTicketById(ticketNum));
+
+
+    }
+
+    public static void generateTickets(int numberOfTickets) {
         Sector sector;
         int count = 1;
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= numberOfTickets; i++) {
             if (i % 2 == 0) {
                 sector = Sector.A;
             } else if (i % 5 == 0) {
@@ -19,22 +36,16 @@ public class TicketService {
                 sector = Sector.C;
             }
 
-            String id = Integer.toString(count);
+            int id = count;
             Ticket ticket = new Ticket(id, "LaScala", (i + 100), true, sector, 10.0f, 9.99);
             count++;
             tickets.add(ticket);
-
         }
-
-        System.out.println(tickets);
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Ticket from method: " + getTicketBySector(Sector.A));
-        System.out.println("Ticket from method: " + getTicketById("8"));
     }
 
-    public static Ticket getTicketById(String id) {
+    public static Ticket getTicketById(int id) {
         for (Ticket ticket : tickets) {
-            if (id.equals(ticket.getId())) {
+            if (id == ticket.getId()) {
                 return ticket;
             }
         }

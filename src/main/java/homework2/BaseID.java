@@ -1,6 +1,6 @@
 package homework2;
 
-public interface BaseID <T> {
-    T getId();
-    void setId(T t);
+public abstract class BaseID {
+    public abstract int getId();
+    public abstract void setId(int id);
 }

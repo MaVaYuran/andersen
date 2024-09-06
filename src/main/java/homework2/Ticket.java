@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
-public class Ticket implements BaseID<String>, Printable {
-    private String id;
+public class Ticket extends BaseID implements Printable {
+    private int id;
     private String concertHall;
     private int eventCode;
     private String time;
@@ -25,7 +25,7 @@ public class Ticket implements BaseID<String>, Printable {
         this.time = getTime();
     }
 
-    public Ticket(String id, String concertHall, int eventCode, boolean isPromo,
+    public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         this.id = id;
         this.concertHall = concertHall;
@@ -43,12 +43,12 @@ public class Ticket implements BaseID<String>, Printable {
         return dateTime;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -60,12 +60,32 @@ public class Ticket implements BaseID<String>, Printable {
         return price;
     }
 
+    public String getConcertHall() {
+        return concertHall;
+    }
+
+    public int getEventCode() {
+        return eventCode;
+    }
+
+    public boolean isPromo() {
+        return isPromo;
+    }
+
+    public float getMaxWeight() {
+        return maxWeight;
+    }
+
     public void setTime(String time) {
         this.time = time;
     }
 
     public void setSector(Sector sector) {
         this.sector = sector;
+    }
+
+    public static void shared(String receiver, Ticket ticket) {
+        System.out.println("Ticket shared via " + receiver + ":  " + ticket);
     }
 
     @Override
