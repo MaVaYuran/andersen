@@ -1,20 +1,54 @@
 package homework2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TicketService {
-    private static final String ID = "1";
+    static List<Ticket> tickets = new ArrayList<>();
+
     public static void main(String[] args) {
+        Sector sector;
+        int count = 1;
 
-        Ticket fullTicket = new Ticket(ID,"Plaza", 290, false, Sector.A, 25.00f, 15.99);
-        Ticket limitedTicket = new Ticket("LaScala", 180);
-        Ticket emptyTicket = new Ticket();
+        for (int i = 1; i <= 10; i++) {
+            if (i % 2 == 0) {
+                sector = Sector.A;
+            } else if (i % 5 == 0) {
+                sector = Sector.B;
+            } else {
+                sector = Sector.C;
+            }
 
+            String id = Integer.toString(count);
+            Ticket ticket = new Ticket(id, "LaScala", (i + 100), true, sector, 10.0f, 9.99);
+            count++;
+            tickets.add(ticket);
 
+        }
 
-        System.out.println("Full ticket:");
-        System.out.println(fullTicket);
-        System.out.println("Limited ticket:");
-        System.out.println(limitedTicket);
-        System.out.println("Empty ticket:") ;
-        System.out.println(emptyTicket);
+        System.out.println(tickets);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Ticket from method: " + getTicketBySector(Sector.A));
+        System.out.println("Ticket from method: " + getTicketById("8"));
+    }
+
+    static Ticket getTicketById(String id) {
+        for (Ticket ticket : tickets) {
+            if (id.equals(ticket.getId())) {
+                return ticket;
+            }
+        }
+        return null;
+
+    }
+
+    static List<Ticket> getTicketBySector(Sector sector) {
+        List<Ticket> ticketsBySector = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            if (sector.equals(ticket.getSector())) {
+                ticketsBySector.add(ticket);
+            }
+        }
+        return ticketsBySector;
     }
 }

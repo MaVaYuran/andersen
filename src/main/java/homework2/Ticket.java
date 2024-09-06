@@ -47,6 +47,12 @@ public class Ticket {
         return id;
     }
 
+    public Sector getSector() {
+        return sector;
+    }
+
+
+
     @Override
     public String toString() {
         return "Ticket{" +
