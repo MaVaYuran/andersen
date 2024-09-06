@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
-public class Ticket {
+public class Ticket implements BaseID<String>, Printable {
     private String id;
     private String concertHall;
     private int eventCode;
@@ -47,11 +47,26 @@ public class Ticket {
         return id;
     }
 
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Sector getSector() {
         return sector;
     }
 
+    public double getPrice() {
+        return price;
+    }
 
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+    }
 
     @Override
     public String toString() {

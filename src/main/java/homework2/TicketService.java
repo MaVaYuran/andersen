@@ -32,7 +32,7 @@ public class TicketService {
         System.out.println("Ticket from method: " + getTicketById("8"));
     }
 
-    static Ticket getTicketById(String id) {
+    public static Ticket getTicketById(String id) {
         for (Ticket ticket : tickets) {
             if (id.equals(ticket.getId())) {
                 return ticket;
@@ -42,7 +42,7 @@ public class TicketService {
 
     }
 
-    static List<Ticket> getTicketBySector(Sector sector) {
+    public static List<Ticket> getTicketBySector(Sector sector) {
         List<Ticket> ticketsBySector = new ArrayList<>();
         for (Ticket ticket : tickets) {
             if (sector.equals(ticket.getSector())) {
