@@ -1,11 +1,15 @@
 package homework2;
 
+import homework2.user.Admin;
+import homework2.user.Client;
+import homework2.user.User;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static homework2.Ticket.shared;
+import static homework2.Ticket.*;
 
 public class TicketService {
     static List<Ticket> tickets = new ArrayList<>();
@@ -16,10 +20,19 @@ public class TicketService {
 
         generateTickets(10);
         Random random = new Random();
-        int ticketNum = random.nextInt(10) + 1;
-        shared(phoneNumber, getTicketById(ticketNum));
-        shared(email, getTicketById(ticketNum));
+        int ticketId = random.nextInt(10) + 1;
 
+        sharedByPhone(ticketId, phoneNumber);
+        sharedByPhoneAndEmail(ticketId, phoneNumber, email);
+
+        User client = new Client(1);
+        User admin = new Admin(1);
+        client.printRole();
+        admin.printRole();
+
+        Ticket actualTicket = ((Client)client).getTicket();
+        System.out.println("Client's ticket: " + actualTicket);
+        System.out.println("Is the ticket actual? " + ((Admin)admin).checkTicket(actualTicket));;
 
     }
 

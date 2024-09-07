@@ -1,15 +1,20 @@
 package homework2.user;
 
-import static homework2.TicketService.getTicketById;
+import homework2.Ticket;
+
 
 public class Admin extends User {
 
+    public Admin(int id) {
+        super( id);
+    }
+    public boolean checkTicket(Ticket ticket) {
+        return ticket != null;
+    }
 
     @Override
     public void printRole() {
-        System.out.println("Role admin");
+        System.out.println("Role is: " + Role.ADMIN);
     }
-    public void checkTicket(int ticketId) {
-        getTicketById(ticketId);
-    }
+
 }

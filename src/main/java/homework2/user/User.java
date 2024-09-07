@@ -1,12 +1,20 @@
 package homework2.user;
 
 import homework2.BaseID;
+import homework2.Ticket;
 
-public abstract class User {
+public abstract class User extends BaseID {
 
-    private String phoneNumber;
-    private String email;
 
+
+
+    public User(int id){
+        super(id);
+
+    }
+//    public Ticket getTicket() {
+//        return ticket;
+//    }
 
     public abstract void printRole();
 
