@@ -10,8 +10,7 @@ import java.util.Objects;
 
 
 public class Ticket extends BaseID implements Printable {
-    private int id;
-    @NullableWarning
+      @NullableWarning
     private String concertHall;
 
     private int eventCode;
@@ -30,7 +29,6 @@ public class Ticket extends BaseID implements Printable {
     public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         super(id);
-
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.time = getTime();
@@ -79,12 +77,12 @@ public class Ticket extends BaseID implements Printable {
         return dateTime;
     }
 
-    public static void sharedByPhone(int ticketId, String phoneNumber) {
+    public static void shared(int ticketId, String phoneNumber) {
         System.out.println("Ticket #" + ticketId + " was shared by phone " + phoneNumber);
     }
 
 
-    public static void sharedByPhoneAndEmail(int ticketId, String phoneNumber, String email) {
+    public static void shared(int ticketId, String phoneNumber, String email) {
         System.out.println("Ticket #" + ticketId + " was shared by phone " + phoneNumber + " and email " + email);
     }
 

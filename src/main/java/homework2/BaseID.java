@@ -1,7 +1,7 @@
 package homework2;
 
 public abstract class BaseID {
-    private int id;
+    protected int id;
 
     public BaseID(int id) {
         this.id = id;

@@ -23,8 +23,8 @@ public class TicketService {
         Random random = new Random();
         int ticketId = random.nextInt(10) + 1;
 
-        sharedByPhone(ticketId, phoneNumber);
-        sharedByPhoneAndEmail(ticketId, phoneNumber, email);
+        shared(ticketId, phoneNumber);
+        shared(ticketId, phoneNumber, email);
 
         User client = new Client(1);
         User admin = new Admin(1);
