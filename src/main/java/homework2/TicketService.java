@@ -1,5 +1,6 @@
 package homework2;
 
+import homework2.annotation.NullableValidator;
 import homework2.user.Admin;
 import homework2.user.Client;
 import homework2.user.User;
@@ -32,7 +33,18 @@ public class TicketService {
 
         Ticket actualTicket = ((Client)client).getTicket();
         System.out.println("Client's ticket: " + actualTicket);
-        System.out.println("Is the ticket actual? " + ((Admin)admin).checkTicket(actualTicket));;
+        System.out.println("Is the ticket actual? " + ((Admin)admin).checkTicket(actualTicket));
+
+        //check @nullableWarning
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("Check annotation:");
+        Ticket ticket = new Ticket(1, null, 100, false, Sector.B, 10.00f, 24.99);
+        try {
+            NullableValidator.checkForNull(ticket);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

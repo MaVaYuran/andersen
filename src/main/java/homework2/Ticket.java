@@ -1,17 +1,21 @@
 package homework2;
 
+import homework2.annotation.NullableWarning;
+
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 
 public class Ticket extends BaseID implements Printable {
     private int id;
-
+    @NullableWarning
     private String concertHall;
+
     private int eventCode;
     private String time;
-
     private boolean isPromo;
     private Sector sector;
     private float maxWeight;
@@ -25,7 +29,8 @@ public class Ticket extends BaseID implements Printable {
 
     public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
-       super(id);
+        super(id);
+
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.time = getTime();
@@ -34,8 +39,6 @@ public class Ticket extends BaseID implements Printable {
         this.maxWeight = maxWeight;
         this.price = price;
     }
-
-
 
 
     public Sector getSector() {
@@ -69,6 +72,7 @@ public class Ticket extends BaseID implements Printable {
     public void setSector(Sector sector) {
         this.sector = sector;
     }
+
     private String getTime() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yy HH:mm:ss");
         String dateTime = dtf.format(LocalDateTime.now());
@@ -80,9 +84,12 @@ public class Ticket extends BaseID implements Printable {
     }
 
 
-    public static void sharedByPhoneAndEmail(int ticketId, String phoneNumber,String email) {
+    public static void sharedByPhoneAndEmail(int ticketId, String phoneNumber, String email) {
         System.out.println("Ticket #" + ticketId + " was shared by phone " + phoneNumber + " and email " + email);
     }
+
+
+
 
     @Override
     public boolean equals(Object o) {
