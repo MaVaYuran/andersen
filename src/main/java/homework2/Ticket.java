@@ -2,10 +2,10 @@ package homework2;
 
 import homework2.annotation.NullableWarning;
 
-import java.lang.reflect.Field;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.NoSuchElementException;
+
 import java.util.Objects;
 
 
@@ -125,7 +125,7 @@ public class Ticket extends BaseID implements Printable {
     @Override
     public String toString() {
         return "Ticket{" +
-               "ID = '" + getId() + '\'' +
+               "ID = '" + id + '\'' +
                ", concertHall = '" + concertHall + '\'' +
                ", eventCode = " + eventCode +
                ", time = '" + time + '\'' +
