@@ -1,5 +1,6 @@
 package homework2;
 
+import homework2.annotation.NullableValidator;
 import homework2.annotation.NullableWarning;
 
 
@@ -10,9 +11,8 @@ import java.util.Objects;
 
 
 public class Ticket extends BaseID implements Printable {
-      @NullableWarning
+    @NullableWarning
     private String concertHall;
-
     private int eventCode;
     private String time;
     private boolean isPromo;
@@ -29,6 +29,7 @@ public class Ticket extends BaseID implements Printable {
     public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         super(id);
+        NullableValidator.checkForNull(concertHall);
         this.concertHall = concertHall;
         this.eventCode = eventCode;
         this.time = getTime();
@@ -77,16 +78,14 @@ public class Ticket extends BaseID implements Printable {
         return dateTime;
     }
 
-    public static void shared(int ticketId, String phoneNumber) {
-        System.out.println("Ticket #" + ticketId + " was shared by phone " + phoneNumber);
+    public void shared( String phoneNumber) {
+        System.out.println("Ticket #" + this.id + " was shared by phone " + phoneNumber);
     }
 
 
-    public static void shared(int ticketId, String phoneNumber, String email) {
-        System.out.println("Ticket #" + ticketId + " was shared by phone " + phoneNumber + " and email " + email);
+    public void shared(String phoneNumber, String email) {
+        System.out.println("Ticket #" + this.id + " was shared by phone " + phoneNumber + " and email " + email);
     }
-
-
 
 
     @Override

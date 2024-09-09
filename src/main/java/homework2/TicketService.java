@@ -15,16 +15,13 @@ import static homework2.Ticket.*;
 public class TicketService {
     static List<Ticket> tickets = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException {
         final String phoneNumber = "37577777777";
         final String email = "useremail@gmail.com";
 
         generateTickets(10);
         Random random = new Random();
         int ticketId = random.nextInt(10) + 1;
-
-        shared(ticketId, phoneNumber);
-        shared(ticketId, phoneNumber, email);
 
         User client = new Client(1);
         User admin = new Admin(1);
@@ -35,16 +32,8 @@ public class TicketService {
         System.out.println("Client's ticket: " + actualTicket);
         System.out.println("Is the ticket actual? " + ((Admin)admin).checkTicket(actualTicket));
 
-        //check @nullableWarning
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("Check annotation:");
-        Ticket ticket = new Ticket(1, null, 100, false, Sector.B, 10.00f, 24.99);
-        try {
-            NullableValidator.checkForNull(ticket);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
+        actualTicket.shared(phoneNumber);
+        actualTicket.shared(phoneNumber, email);
 
     }
 
