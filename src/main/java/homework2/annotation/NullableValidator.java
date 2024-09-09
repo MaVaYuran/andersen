@@ -16,7 +16,6 @@ public class NullableValidator {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 }

@@ -1,21 +1,18 @@
 package homework2;
 
-import homework2.annotation.NullableValidator;
 import homework2.user.Admin;
 import homework2.user.Client;
 import homework2.user.User;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static homework2.Ticket.*;
 
 public class TicketService {
     static List<Ticket> tickets = new ArrayList<>();
 
-    public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) {
         final String phoneNumber = "37577777777";
         final String email = "useremail@gmail.com";
 
@@ -28,12 +25,15 @@ public class TicketService {
         client.printRole();
         admin.printRole();
 
-        Ticket actualTicket = ((Client)client).getTicket();
+        Ticket actualTicket = ((Client) client).getTicket();
         System.out.println("Client's ticket: " + actualTicket);
-        System.out.println("Is the ticket actual? " + ((Admin)admin).checkTicket(actualTicket));
+        System.out.println("Is the ticket actual? " + ((Admin) admin).checkTicket(actualTicket));
 
-        actualTicket.shared(phoneNumber);
-        actualTicket.shared(phoneNumber, email);
+        Ticket ticketForCheck = tickets.get(ticketId);
+        ticketForCheck.shared(phoneNumber);
+        ticketForCheck.shared(phoneNumber, email);
+
+        System.out.println(ticketForCheck);
 
     }
 

@@ -24,13 +24,14 @@ public class Ticket extends BaseID implements Printable {
 
     public Ticket() {
         super(0);
+        NullableValidator.checkForNull(this);
     }
 
     public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         super(id);
-        NullableValidator.checkForNull(concertHall);
         this.concertHall = concertHall;
+        NullableValidator.checkForNull(this);
         this.eventCode = eventCode;
         this.time = getTime();
         this.isPromo = isPromo;
@@ -78,7 +79,7 @@ public class Ticket extends BaseID implements Printable {
         return dateTime;
     }
 
-    public void shared( String phoneNumber) {
+    public void shared(String phoneNumber) {
         System.out.println("Ticket #" + this.id + " was shared by phone " + phoneNumber);
     }
 
