@@ -4,14 +4,14 @@ package homework4;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 @JsonAutoDetect
 public class BusTicket {
     private TicketClass ticketClass;
     private String ticketType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     private int ticketPrice;
 
     public TicketClass getTicketClass() {
@@ -22,7 +22,7 @@ public class BusTicket {
         return ticketType;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -38,7 +38,7 @@ public class BusTicket {
         this.ticketType = ticketType;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -49,24 +49,18 @@ public class BusTicket {
     public BusTicket() {
     }
 
-//    public BusTicket(TicketClass ticketClass, String ticketType, LocalDateTime startDate, int ticketPrice) {
-//        this.ticketClass = ticketClass;
-//        this.ticketType = ticketType;
-//        this.startDate = startDate;
-//        this.ticketPrice = ticketPrice;
-//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BusTicket busTicket = (BusTicket) o;
+        BusTicket ticket = (BusTicket) o;
 
-        if (ticketPrice != busTicket.ticketPrice) return false;
-        if (ticketClass != busTicket.ticketClass) return false;
-        if (!Objects.equals(ticketType, busTicket.ticketType)) return false;
-        return Objects.equals(startDate, busTicket.startDate);
+        if (ticketPrice != ticket.ticketPrice) return false;
+        if (ticketClass != ticket.ticketClass) return false;
+        if (!Objects.equals(ticketType, ticket.ticketType)) return false;
+        return Objects.equals(startDate, ticket.startDate);
     }
 
     @Override

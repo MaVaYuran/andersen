@@ -12,20 +12,27 @@ import java.util.List;
 
 public class JsonParser {
     public static void main(String[] args) {
+        List<BusTicket> tickets;
         String filePath = "tickets.json";
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.registerModule(new JavaTimeModule());
-            List<BusTicket> tickets = mapper.readValue(new File(filePath),
+            tickets = mapper.readValue(new File(filePath),
                     new TypeReference<List<BusTicket>>() {
                     });
-
+            System.out.println(tickets);
+            int index = 1;
             for (BusTicket ticket : tickets) {
-                System.out.println(ticket);
+                System.out.println("Ticket #" + index +":");
+                index++;
+                TicketValidator validator = new TicketValidator();
+                validator.checkTicket(ticket);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+
 }
