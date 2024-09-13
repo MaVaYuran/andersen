@@ -3,7 +3,6 @@ package homework4;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 
-
 public class TicketValidator {
     private static int trueTickets = 0;
     private static int falseTicketType = 0;
@@ -22,14 +21,12 @@ public class TicketValidator {
                           ticketType.equals("YEAR"))) {
                         System.out.println("Unacceptable ticket type");
                         falseTicketType++;
-                        System.out.println("False ticket type" + falseTicketType);
                         return false;
                     }
                 } catch (NullPointerException e) {
                     System.out.println("Ticket type null");
 
                     falseTicketType++;
-                    System.out.println("False ticket type" + falseTicketType);
                     return false;
 
                 }
@@ -39,7 +36,6 @@ public class TicketValidator {
                     if (startDate != null) {
                         System.out.println("This ticket shouldn't have start date");
                         falseTicketDate++;
-                        System.out.println("False ticket date" + falseTicketDate);
                         return false;
                     }
                 }
@@ -50,7 +46,6 @@ public class TicketValidator {
                     if (ticketTime.isAfter(LocalDate.now())) {
                         System.out.println("Date cannot be in future");
                         falseTicketDate++;
-                        System.out.println("False ticket Date " + falseTicketDate);
                         return false;
                     }
                 } catch (NullPointerException e) {
@@ -63,23 +58,36 @@ public class TicketValidator {
                 if (price % 2 != 0) {
                     System.out.println("Price should be even");
                     falseTicketPrice++;
-                    System.out.println("False ticket price " + falseTicketPrice);
                     return false;
                 }
                 if (price == 0) {
                     System.out.println("Price cannot be 0");
                     falseTicketPrice++;
-                    System.out.println("false ticket price " + falseTicketPrice);
                     return false;
                 }
             }
         }
         System.out.println("Ticket is ok");
         trueTickets++;
-        System.out.println("Number of valid tickets " + trueTickets);
         return true;
 
 
     }
 
+    public void printInfo() {
+        System.out.println("Total: " + (trueTickets + falseTicketType + falseTicketDate + falseTicketPrice));
+        System.out.println("Valid: " + trueTickets);
+        printViolation();
+    }
+
+    public static void printViolation() {
+
+        if (falseTicketType > falseTicketDate && falseTicketType > falseTicketPrice) {
+            System.out.printf("Most popular violation: type  - " + falseTicketType);
+        } else if (falseTicketDate > falseTicketType && falseTicketDate > falseTicketPrice) {
+            System.out.printf("Most popular violation:  date - " + falseTicketDate);
+        } else
+            System.out.printf("Most popular violation: price - " + falseTicketPrice);
+    }
 }
+

@@ -21,14 +21,17 @@ public class JsonParser {
                     new TypeReference<List<BusTicket>>() {
                     });
             System.out.println(tickets);
+            TicketValidator validator = new TicketValidator();
             int index = 1;
             for (BusTicket ticket : tickets) {
                 System.out.println("Ticket #" + index +":");
                 index++;
-                TicketValidator validator = new TicketValidator();
-                validator.checkTicket(ticket);
-            }
 
+                validator.checkTicket(ticket);
+
+            }
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            validator.printInfo();
         } catch (IOException e) {
             e.printStackTrace();
         }
