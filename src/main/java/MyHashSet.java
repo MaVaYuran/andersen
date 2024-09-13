@@ -23,10 +23,7 @@ public class MyHashSet<T> implements Iterable<T> {
         }
     }
 
-    private boolean contains(T element) {
-        int index = getIndex(element);
-        return data[index] != null && data[index].equals(element);
-    }
+
 
     public void remove(T element) {
         int index = getIndex(element);
@@ -35,15 +32,19 @@ public class MyHashSet<T> implements Iterable<T> {
             size--;
         }
     }
+    @Override
+    public Iterator<T> iterator() {
+        return new CustomHashSetIterator();
+    }
+
 
     private int getIndex(T element) {
         return Math.abs(element.hashCode() % data.length);
     }
 
-
-    @Override
-    public Iterator<T> iterator() {
-        return new CustomHashSetIterator();
+    private boolean contains(T element) {
+        int index = getIndex(element);
+        return data[index] != null && data[index].equals(element);
     }
 
     @SuppressWarnings("unchecked")

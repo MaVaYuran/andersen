@@ -1,10 +1,11 @@
 public class MyArrayList<T> {
+    private static final int INITIAL_CAPACITY =10;
     private T[] array;
     private int size;
 
     @SuppressWarnings("unchecked")
     public MyArrayList() {
-        this.array = (T[]) new Object[10];
+        this.array = (T[]) new Object[INITIAL_CAPACITY];
         this.size = 0;
     }
 
@@ -16,20 +17,22 @@ public class MyArrayList<T> {
     }
 
     public T getByIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
+        checkIndex(index);
         return array[index];
     }
 
     public void delete(int index) {
-        if (index < 0 || index >= size) {
-            throw new ArrayIndexOutOfBoundsException();
-        }
+        checkIndex(index);
         for (int i = index; i < size - 1; i++) {
             array[i] = array[i + 1];
         }
         size--;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
     }
 
     @SuppressWarnings("unchecked")
