@@ -12,7 +12,7 @@ public class BusTicket {
     private String ticketType;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    private int ticketPrice;
+    private Integer ticketPrice;
 
     public TicketClass getTicketClass() {
         return ticketClass;
@@ -26,7 +26,7 @@ public class BusTicket {
         return startDate;
     }
 
-    public int getTicketPrice() {
+    public Integer getTicketPrice() {
         return ticketPrice;
     }
 
@@ -42,7 +42,7 @@ public class BusTicket {
         this.startDate = startDate;
     }
 
-    public void setTicketPrice(int ticketPrice) {
+    public void setTicketPrice(Integer ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 

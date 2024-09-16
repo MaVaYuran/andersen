@@ -1,93 +1,73 @@
 package homework4;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
-
+import java.util.ArrayList;
+import java.util.List;
 public class TicketValidator {
-    private static int trueTickets = 0;
     private static int falseTicketType = 0;
     private static int falseTicketDate = 0;
     private static int falseTicketPrice = 0;
 
-    public boolean checkTicket(BusTicket busTicket) {
-        Field[] fields = busTicket.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if (field.getName().equals("ticketType")) {
-                field.setAccessible(true);
-                String ticketType = busTicket.getTicketType();
+    public List<Integer> checkTicket(BusTicket ticket) {
+        List<Integer> violations = new ArrayList<>();
+        if (!checkTicketType(ticket))
+            violations.add(falseTicketType);
+        if (!checkStartDate(ticket))
+            violations.add(falseTicketDate);
+        if (!checkTicketPrice(ticket))
+            violations.add(falseTicketPrice);
+        return violations;
+    }
 
-                try {
-                    if (!(ticketType.equals("DAY") || ticketType.equals("WEEK") || ticketType.equals("MONTH") ||
-                          ticketType.equals("YEAR"))) {
-                        System.out.println("Unacceptable ticket type");
-                        falseTicketType++;
-                        return false;
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println("Ticket type null");
+    private boolean checkTicketType(BusTicket busTicket) {
+        if (busTicket.getTicketType() == null) {
+            return false;
+        }
+        if (!(busTicket.getTicketType().equals("DAY") || busTicket.getTicketType().equals("WEEK") ||
+              busTicket.getTicketType().equals("MONTH") || busTicket.getTicketType().equals("YEAR"))) {
+            falseTicketType++;
+            return false;
+        }
 
-                    falseTicketType++;
-                    return false;
+        return true;
+    }
 
-                }
-
-                if (ticketType.equals("MONTH")) {
-                    LocalDate startDate = busTicket.getStartDate();
-                    if (startDate != null) {
-                        System.out.println("This ticket shouldn't have start date");
-                        falseTicketDate++;
-                        return false;
-                    }
-                }
-            } else if (field.getName().equals("startDate")) {
-                field.setAccessible(true);
-                LocalDate ticketTime = busTicket.getStartDate();
-                try {
-                    if (ticketTime.isAfter(LocalDate.now())) {
-                        System.out.println("Date cannot be in future");
-                        falseTicketDate++;
-                        return false;
-                    }
-                } catch (NullPointerException e) {
-                    System.out.println("Date null");
-                }
-
-            } else if (field.getName().equals("ticketPrice")) {
-                field.setAccessible(true);
-                int price = busTicket.getTicketPrice();
-                if (price % 2 != 0) {
-                    System.out.println("Price should be even");
-                    falseTicketPrice++;
-                    return false;
-                }
-                if (price == 0) {
-                    System.out.println("Price cannot be 0");
-                    falseTicketPrice++;
-                    return false;
-                }
+    private static boolean checkStartDate(BusTicket busTicket) {
+        try {
+            if (busTicket.getStartDate().isAfter(LocalDate.now())) {
+                falseTicketDate++;
+                return false;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("");
+        }
+        if (("MONTH").equals(busTicket.getTicketType())) {
+            if (busTicket.getStartDate() != null) {
+                falseTicketDate++;
+                return false;
             }
         }
-        System.out.println("Ticket is ok");
-        trueTickets++;
         return true;
-
-
     }
 
-    public void printInfo() {
-        System.out.println("Total: " + (trueTickets + falseTicketType + falseTicketDate + falseTicketPrice));
-        System.out.println("Valid: " + trueTickets);
-        printViolation();
+
+    private static boolean checkTicketPrice(BusTicket busTicket) {
+
+        if (busTicket.getTicketPrice() == null || busTicket.getTicketPrice() <= 0 || busTicket.getTicketPrice() % 2 != 0) {
+            falseTicketPrice++;
+            return false;
+        }
+        return true;
     }
 
-    public static void printViolation() {
 
+    public void printViolation() {
         if (falseTicketType > falseTicketDate && falseTicketType > falseTicketPrice) {
-            System.out.printf("Most popular violation: type  - " + falseTicketType);
+            System.out.printf("Most popular violation: wrong type  - " + falseTicketType);
         } else if (falseTicketDate > falseTicketType && falseTicketDate > falseTicketPrice) {
-            System.out.printf("Most popular violation:  date - " + falseTicketDate);
+            System.out.printf("Most popular violation: wrong date - " + falseTicketDate);
         } else
-            System.out.printf("Most popular violation: price - " + falseTicketPrice);
+            System.out.printf("Most popular violation: wrong price - " + falseTicketPrice);
     }
 }
 

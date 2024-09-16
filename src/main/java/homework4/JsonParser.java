@@ -21,21 +21,22 @@ public class JsonParser {
                     new TypeReference<List<BusTicket>>() {
                     });
             System.out.println(tickets);
+
             TicketValidator validator = new TicketValidator();
-            int index = 1;
+            int validTickets = 0;
+
             for (BusTicket ticket : tickets) {
-                System.out.println("Ticket #" + index +":");
-                index++;
-
-                validator.checkTicket(ticket);
-
+                List<Integer> violationCount = validator.checkTicket(ticket);
+                if(violationCount.isEmpty()) {
+                    validTickets++;
+                }
             }
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            validator.printInfo();
+            System.out.println("Total: " + tickets.size());
+            System.out.println("Valid: " + validTickets);
+            validator.printViolation();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }
