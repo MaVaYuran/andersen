@@ -1,8 +1,6 @@
-package homework4;
+package homework;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.io.Serializable;
 
 public enum TicketClass  {
     @JsonFormat(shape = JsonFormat.Shape.STRING)

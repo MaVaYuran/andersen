@@ -1,8 +1,9 @@
-package homework4;
+package homework;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 public class TicketValidator {
     private static int falseTicketType = 0;
     private static int falseTicketDate = 0;
@@ -69,5 +70,7 @@ public class TicketValidator {
         } else
             System.out.printf("Most popular violation: wrong price - " + falseTicketPrice);
     }
+
+
 }
 
