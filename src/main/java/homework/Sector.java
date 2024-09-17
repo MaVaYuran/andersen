@@ -1,4 +1,4 @@
-package homework2;
+package homework;
 
 public enum Sector {
     A,B,C

@@ -1,6 +1,6 @@
-package homework2.user;
+package homework.user;
 
-import homework2.Ticket;
+import homework.Ticket;
 
 
 public class Admin extends User {

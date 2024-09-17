@@ -1,3 +1,5 @@
+package containers;
+
 public class MyArrayList<T> {
     private static final int INITIAL_CAPACITY =10;
     private T[] array;

@@ -1,7 +1,7 @@
-package homework2;
+package homework;
 
-import homework2.annotation.NullableValidator;
-import homework2.annotation.NullableWarning;
+import homework.annotation.NullableValidator;
+import homework.annotation.NullableWarning;
 
 
 import java.time.LocalDateTime;

@@ -1,7 +1,7 @@
-package homework2.user;
+package homework.user;
 
-import homework2.BaseID;
-import homework2.Printable;
+import homework.BaseID;
+import homework.Printable;
 
 
 public abstract class User extends BaseID implements Printable {
