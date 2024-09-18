@@ -34,6 +34,25 @@ public class TicketService {
         ticketForCheck.shared(phoneNumber, email);
 
         System.out.println(ticketForCheck);
+        System.out.println("''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''");
+        List<BusTicket> tickets;
+
+        Parser parser = new Parser();
+        tickets = parser.parseJSON();
+
+        TicketValidator validator = new TicketValidator();
+        int validTickets = 0;
+
+        for (BusTicket ticket : tickets) {
+            List<Integer> violationCount = validator.checkTicket(ticket);
+            if (violationCount.isEmpty()) {
+                validTickets++;
+            }
+        }
+        System.out.println("Total: " + tickets.size());
+        System.out.println("Valid: " + validTickets);
+        validator.printViolation();
+
 
     }
 
@@ -76,24 +95,24 @@ public class TicketService {
         }
         return ticketsBySector;
     }
-    public void validateBusTickets() {
-        List<BusTicket> tickets;
-
-        Parser parser = new Parser();
-        tickets = parser.parseJSON();
-
-        TicketValidator validator = new TicketValidator();
-        int validTickets = 0;
-
-        for (BusTicket ticket : tickets) {
-            List<Integer> violationCount = validator.checkTicket(ticket);
-            if (violationCount.isEmpty()) {
-                validTickets++;
-            }
-        }
-        System.out.println("Total: " + tickets.size());
-        System.out.println("Valid: " + validTickets);
-        validator.printViolation();
-
-    }
+//    public void validateBusTickets() {
+//        List<BusTicket> tickets;
+//
+//        Parser parser = new Parser();
+//        tickets = parser.parseJSON();
+//
+//        TicketValidator validator = new TicketValidator();
+//        int validTickets = 0;
+//
+//        for (BusTicket ticket : tickets) {
+//            List<Integer> violationCount = validator.checkTicket(ticket);
+//            if (violationCount.isEmpty()) {
+//                validTickets++;
+//            }
+//        }
+//        System.out.println("Total: " + tickets.size());
+//        System.out.println("Valid: " + validTickets);
+//        validator.printViolation();
+//
+//    }
 }
