@@ -1,4 +1,4 @@
-package homework;
+package by.mariayuran.homework;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

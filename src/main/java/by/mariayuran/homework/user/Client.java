@@ -1,6 +1,6 @@
-package homework.user;
+package by.mariayuran.homework.user;
 
-import homework.Ticket;
+import by.mariayuran.homework.Ticket;
 
 public class Client extends User {
     private Ticket ticket;

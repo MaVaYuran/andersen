@@ -1,4 +1,4 @@
-package homework;
+package by.mariayuran.homework;
 
 public abstract class BaseID {
     protected int id;

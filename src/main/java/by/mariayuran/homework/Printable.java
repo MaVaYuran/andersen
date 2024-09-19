@@ -1,4 +1,4 @@
-package homework;
+package by.mariayuran.homework;
 
 public interface Printable {
     default void print() {

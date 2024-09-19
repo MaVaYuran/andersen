@@ -1,8 +1,8 @@
-package homework;
+package by.mariayuran.homework;
 
-import homework.user.Admin;
-import homework.user.Client;
-import homework.user.User;
+import by.mariayuran.homework.user.Admin;
+import by.mariayuran.homework.user.Client;
+import by.mariayuran.homework.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

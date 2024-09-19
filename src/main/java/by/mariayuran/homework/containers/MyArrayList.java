@@ -1,4 +1,4 @@
-package containers;
+package by.mariayuran.homework.containers;
 
 public class MyArrayList<T> {
     private static final int INITIAL_CAPACITY =10;
