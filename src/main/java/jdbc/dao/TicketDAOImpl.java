@@ -4,6 +4,8 @@ import homework.TicketType;
 import jdbc.pojo.Ticket;
 import jdbc.util.ConnectionManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -31,8 +33,8 @@ public class TicketDAOImpl implements TicketDAO {
 
 
     public Ticket save(Ticket t) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(SAVE_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(SAVE_SQL)) {
             statement.setInt(1, t.getUserId());
             statement.setString(2, t.getTicketType().toString());
 
@@ -45,11 +47,11 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Ticket getTicket(int id) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(GET_BY_ID_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(GET_BY_ID_SQL)) {
             statement.setInt(1, id);
-            try (var result = statement.executeQuery()) {
-                Ticket ticket = null;
+            try (ResultSet result = statement.executeQuery()) {
+                Ticket ticket;
                 if (result.next()) {
                     ticket = buildTicket(result);
                     return ticket;
@@ -62,22 +64,13 @@ public class TicketDAOImpl implements TicketDAO {
         return null;
     }
 
-    private static Ticket buildTicket(ResultSet result) throws SQLException {
-        return new Ticket(result.getInt("id"),
-                result.getInt("user_id"),
-                TicketType.valueOf(result.getString("ticket_type")),
-                result.getTimestamp("creation_date"));
-
-    }
-
-
-    @Override
+       @Override
     public List<Ticket> getUserTickets(int userId) {
         List<Ticket> userTickets = new ArrayList<>();
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(GET_BY_USER_ID_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(GET_BY_USER_ID_SQL)) {
             statement.setInt(1, userId);
-            try (var resultSet = statement.executeQuery()) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     userTickets.add(buildTicket(resultSet));
                 }
@@ -90,8 +83,8 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public void updateTicketType(int id, TicketType newTicketType) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(UPDATE_TYPE_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_TYPE_SQL)) {
             statement.setString(1, newTicketType.name());
             statement.setInt(2, id);
             statement.executeUpdate();
@@ -100,7 +93,13 @@ public class TicketDAOImpl implements TicketDAO {
             throw new RuntimeException(e);
         }
     }
+    private Ticket buildTicket(ResultSet result) throws SQLException {
+        return new Ticket(result.getInt("id"),
+                result.getInt("user_id"),
+                TicketType.valueOf(result.getString("ticket_type")),
+                result.getTimestamp("creation_date"));
 
+    }
 
     public static TicketDAOImpl getInstance() {
         return INSTANCE;

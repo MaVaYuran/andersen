@@ -3,6 +3,9 @@ package jdbc.dao;
 import jdbc.pojo.Users;
 import jdbc.util.ConnectionManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAOImpl implements UserDAO {
@@ -21,8 +24,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Users save(Users user) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(SAVE_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(SAVE_SQL)) {
             statement.setString(1, user.getName());
 
             statement.executeUpdate();
@@ -34,12 +37,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Users getUser(int id) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(GET_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(GET_SQL)) {
             statement.setInt(1, id);
-            try (var result = statement.executeQuery()) {
+            try ( ResultSet result = statement.executeQuery()) {
 
-                Users user = null;
+                Users user;
                 if (result.next()) {
                     user = new Users(result.getInt("id"),
                             result.getString("name"),
@@ -56,8 +59,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean delete(int id) {
-        try (var connection = ConnectionManager.open();
-             var statement = connection.prepareStatement(DELETE_SQL)) {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement statement = connection.prepareStatement(DELETE_SQL)) {
             statement.setInt(1, id);
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

@@ -1,11 +1,10 @@
 package jdbc.pojo;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class Users  {
-    int id;
+    private int id;
     private String name;
     private Timestamp creationDate;
 
