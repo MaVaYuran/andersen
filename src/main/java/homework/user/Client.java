@@ -1,17 +1,18 @@
-package homework2.user;
+package homework.user;
 
-import homework2.Ticket;
+import homework.ConcertTicket;
+
 
 public class Client extends User {
-    private Ticket ticket;
+    private ConcertTicket ticket;
 
     public Client(int id) {
         super(id);
 
     }
 
-    public Ticket getTicket() {
-        return new Ticket();
+    public ConcertTicket getTicket() {
+        return new ConcertTicket();
     }
 
 

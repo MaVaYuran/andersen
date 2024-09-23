@@ -1,4 +1,4 @@
-package homework2.annotation;
+package homework.annotation;
 
 import java.lang.reflect.Field;
 

@@ -1,14 +1,13 @@
-package homework2.user;
+package homework.user;
 
-import homework2.Ticket;
-
+import homework.ConcertTicket;
 
 public class Admin extends User {
 
     public Admin(int id) {
         super( id);
     }
-    public boolean checkTicket(Ticket ticket) {
+    public boolean checkTicket(ConcertTicket ticket) {
         return ticket != null;
     }
 

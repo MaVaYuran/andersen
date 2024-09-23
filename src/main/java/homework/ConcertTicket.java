@@ -1,7 +1,7 @@
-package homework2;
+package homework;
 
-import homework2.annotation.NullableValidator;
-import homework2.annotation.NullableWarning;
+import homework.annotation.NullableValidator;
+import homework.annotation.NullableWarning;
 
 
 import java.time.LocalDateTime;
@@ -10,10 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 
-public class Ticket extends BaseID implements Printable {
+public class ConcertTicket extends BaseID implements Printable {
     @NullableWarning
     private String concertHall;
     private int eventCode;
+
     private String time;
     private boolean isPromo;
     private Sector sector;
@@ -22,12 +23,12 @@ public class Ticket extends BaseID implements Printable {
     private double price;
 
 
-    public Ticket() {
+    public ConcertTicket() {
         super(0);
         NullableValidator.checkForNull(this);
     }
 
-    public Ticket(int id, String concertHall, int eventCode, boolean isPromo,
+    public ConcertTicket(int id, String concertHall, int eventCode, boolean isPromo,
                   Sector sector, Float maxWeight, double price) {
         super(id);
         this.concertHall = concertHall;
@@ -80,12 +81,12 @@ public class Ticket extends BaseID implements Printable {
     }
 
     public void shared(String phoneNumber) {
-        System.out.println("Ticket #" + this.id + " was shared by phone " + phoneNumber);
+        System.out.println("ConcertTicket #" + this.id + " was shared by phone " + phoneNumber);
     }
 
 
     public void shared(String phoneNumber, String email) {
-        System.out.println("Ticket #" + this.id + " was shared by phone " + phoneNumber + " and email " + email);
+        System.out.println("ConcertTicket #" + this.id + " was shared by phone " + phoneNumber + " and email " + email);
     }
 
 
@@ -94,7 +95,7 @@ public class Ticket extends BaseID implements Printable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Ticket ticket = (Ticket) o;
+        ConcertTicket ticket = (ConcertTicket) o;
 
         if (id != ticket.id) return false;
         if (eventCode != ticket.eventCode) return false;
@@ -124,7 +125,7 @@ public class Ticket extends BaseID implements Printable {
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "ConcertTicket{" +
                "ID = '" + id + '\'' +
                ", concertHall = '" + concertHall + '\'' +
                ", eventCode = " + eventCode +

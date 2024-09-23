@@ -1,4 +1,4 @@
-package homework2.user;
+package homework.user;
 
 public enum Role {
     ADMIN, CLIENT

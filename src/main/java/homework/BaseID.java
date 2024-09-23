@@ -1,4 +1,4 @@
-package homework2;
+package homework;
 
 public abstract class BaseID {
     protected int id;
