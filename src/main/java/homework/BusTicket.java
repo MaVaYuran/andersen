@@ -1,24 +1,36 @@
 package homework;
 
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.util.Objects;
+
 @JsonAutoDetect
+
 public class BusTicket {
+
     private TicketClass ticketClass;
-    private String ticketType;
+    private TicketType ticketType;
+
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     private Integer ticketPrice;
+
+    public BusTicket(TicketClass ticketClass, TicketType ticketType, LocalDate startDate, Integer ticketPrice) {
+
+        this.ticketClass = ticketClass;
+        this.ticketType = ticketType;
+        this.startDate = startDate;
+        this.ticketPrice = ticketPrice;
+    }
 
     public TicketClass getTicketClass() {
         return ticketClass;
     }
 
-    public String getTicketType() {
+    public TicketType getTicketType() {
         return ticketType;
     }
 
@@ -34,7 +46,7 @@ public class BusTicket {
         this.ticketClass = ticketClass;
     }
 
-    public void setTicketType(String ticketType) {
+    public void setTicketType(TicketType ticketType) {
         this.ticketType = ticketType;
     }
 
@@ -74,7 +86,7 @@ public class BusTicket {
 
     @Override
     public String toString() {
-        return "BusTicket{" +
+        return "Ticket{" +
                "ticketClass=" + ticketClass +
                ", ticketType=" + ticketType +
                ", startDate=" + startDate +

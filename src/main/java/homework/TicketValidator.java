@@ -24,8 +24,8 @@ public class TicketValidator {
         if (busTicket.getTicketType() == null) {
             return false;
         }
-        if (!(busTicket.getTicketType().equals("DAY") || busTicket.getTicketType().equals("WEEK") ||
-              busTicket.getTicketType().equals("MONTH") || busTicket.getTicketType().equals("YEAR"))) {
+        if (!(busTicket.getTicketType().equals(TicketType.DAY) || busTicket.getTicketType().equals(TicketType.WEEK) ||
+              busTicket.getTicketType().equals(TicketType.MONTH) || busTicket.getTicketType().equals(TicketType.YEAR))) {
             falseTicketType++;
             return false;
         }
@@ -42,7 +42,7 @@ public class TicketValidator {
         } catch (NullPointerException e) {
             System.out.println("");
         }
-        if (("MONTH").equals(busTicket.getTicketType())) {
+        if ((TicketType.MONTH).equals(busTicket.getTicketType())) {
             if (busTicket.getStartDate() != null) {
                 falseTicketDate++;
                 return false;
