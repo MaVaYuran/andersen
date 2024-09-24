@@ -3,16 +3,16 @@ package jdbc.pojo;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Users  {
+public class User  {
     private int id;
     private String name;
     private Timestamp creationDate;
 
-    public Users() {
+    public User() {
 
     }
 
-    public Users(int id, String name, Timestamp creationDate) {
+    public User(int id, String name, Timestamp creationDate) {
        this.id = id;
         this.name = name;
         this.creationDate = creationDate;
@@ -47,11 +47,11 @@ public class Users  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Users users = (Users) o;
+        User user = (User) o;
 
-        if (id != users.id) return false;
-        if (!Objects.equals(name, users.name)) return false;
-        return Objects.equals(creationDate, users.creationDate);
+        if (id != user.id) return false;
+        if (!Objects.equals(name, user.name)) return false;
+        return Objects.equals(creationDate, user.creationDate);
     }
 
     @Override

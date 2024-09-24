@@ -1,6 +1,6 @@
 package jdbc.dao;
 
-import jdbc.pojo.Users;
+import jdbc.pojo.User;
 import jdbc.util.ConnectionManager;
 
 import java.sql.Connection;
@@ -23,7 +23,7 @@ public class UserDAOImpl implements UserDAO {
             """;
 
     @Override
-    public Users save(Users user) {
+    public User save(User user) {
         try (Connection connection = ConnectionManager.open();
              PreparedStatement statement = connection.prepareStatement(SAVE_SQL)) {
             statement.setString(1, user.getName());
@@ -36,15 +36,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Users getUser(int id) {
+    public User getUser(int id) {
         try (Connection connection = ConnectionManager.open();
              PreparedStatement statement = connection.prepareStatement(GET_SQL)) {
             statement.setInt(1, id);
             try ( ResultSet result = statement.executeQuery()) {
 
-                Users user;
+                User user;
                 if (result.next()) {
-                    user = new Users(result.getInt("id"),
+                    user = new User(result.getInt("id"),
                             result.getString("name"),
                             result.getTimestamp("creation_date")
                     );
