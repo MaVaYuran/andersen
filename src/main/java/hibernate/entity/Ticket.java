@@ -1,14 +1,20 @@
-package jdbc.pojo;
+package hibernate.entity;
 
 import homework.TicketType;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Objects;
-
+@Entity
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "user_id")
     private int userId;
+    @Column(name = "ticket_type")
     private TicketType ticketType;
+    @Column(name = "creation_date")
     private Timestamp creationDate;
 
     public Ticket() {

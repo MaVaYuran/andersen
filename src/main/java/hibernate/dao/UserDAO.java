@@ -1,9 +1,12 @@
-package jdbc.dao;
+package hibernate.dao;
 
-import jdbc.pojo.User;
+import hibernate.entity.User;
 
 public interface UserDAO {
-    User save(User user);
+    Integer save(User user);
+
     User getUser(int id);
+
     boolean delete(int id);
+
 }

@@ -1,11 +1,17 @@
-package jdbc.pojo;
+package hibernate.entity;
 
+import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-
+@Table(name = "users")
+@Entity
 public class User  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "creation_date")
     private Timestamp creationDate;
 
     public User() {
