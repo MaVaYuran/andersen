@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Objects;
+
 @Entity
 public class Ticket {
     @Id
@@ -20,11 +21,10 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(int id, int userId, TicketType ticketType, Timestamp creationDate) {
-        this.id = id;
+    public Ticket(int userId, TicketType ticketType) {
         this.userId = userId;
         this.ticketType = ticketType;
-        this.creationDate = creationDate;
+
     }
 
     public int getId() {

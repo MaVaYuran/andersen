@@ -2,6 +2,7 @@ package hibernate.dao;
 
 import homework.TicketType;
 import hibernate.entity.Ticket;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -24,89 +25,63 @@ public class TicketDAOImpl implements TicketDAO {
     }
 
     public Integer save(Ticket ticket) {
-        Session session = null;
-        Transaction transaction = null;
-        Integer savedId;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
+
+        try (Session session = sessionFactory.openSession()) {
+            Integer savedId;
+            Transaction transaction = session.beginTransaction();
             savedId = (Integer) session.save(ticket);
             transaction.commit();
-
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-        } finally {
-            if (session != null) session.close();
+            return savedId;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
         }
-        return savedId;
     }
 
     @Override
     public Ticket getTicket(int id) {
-        Session session = null;
-        Transaction transaction = null;
-        Ticket ticket;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            ticket = session.get(Ticket.class, id);
-            transaction.commit();
 
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-
-        } finally {
-            if (session != null) session.close();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            return session.get(Ticket.class, id);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
         }
-        return ticket;
     }
 
     @Override
     public List<Ticket> getUserTickets(int userId) {
-        Session session = null;
-        Transaction transaction = null;
-        List<Ticket> userTickets;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            userTickets = session.createQuery("from Ticket where userId = :userId", Ticket.class)
+
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();//???
+            return session.createQuery("from Ticket where userId = :userId", Ticket.class)
                     .setParameter("userId", userId)
                     .getResultList();
-            transaction.commit();
 
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-
-        } finally {
-            if (session != null) session.close();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
         }
-        return userTickets;
     }
 
     @Override
     public void updateTicketType(int id, TicketType newTicketType) {
-        Session session = null;
-        Transaction transaction = null;
-        Ticket ticket;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
+
+        try (Session session = sessionFactory.openSession()) {
+            Ticket ticket;
             ticket = session.get(Ticket.class, id);
             if (ticket != null) {
                 ticket.setTicketType(newTicketType);
+                Transaction transaction = session.beginTransaction();
                 session.update(ticket);
                 transaction.commit();
+            } else {
+                System.out.println("Ticket not found");
             }
 
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-        }
-        finally {
-            if(session != null) session.close();
+        } catch (HibernateException e) {
+            e.printStackTrace();
         }
     }
 }

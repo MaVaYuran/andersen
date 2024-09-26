@@ -1,11 +1,13 @@
 package hibernate.entity;
 
 import jakarta.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.Objects;
+
 @Table(name = "users")
 @Entity
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,10 +20,9 @@ public class User  {
 
     }
 
-    public User(int id, String name, Timestamp creationDate) {
-       this.id = id;
+    public User(String name) {
         this.name = name;
-        this.creationDate = creationDate;
+
     }
 
     public int getId() {

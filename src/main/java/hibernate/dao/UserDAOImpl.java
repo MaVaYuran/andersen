@@ -2,6 +2,7 @@ package hibernate.dao;
 
 import hibernate.entity.User;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,61 +21,45 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Integer save(User user) {
-        Session session = null;
-        Transaction transaction = null;
-        Integer savedId;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
+
+        try (Session session = sessionFactory.openSession()) {
+            Integer savedId;
+            Transaction transaction = session.beginTransaction();
             savedId = (Integer) session.save(user);
             transaction.commit();
-
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-
-        } finally {
-            if (session != null) session.close();
+            return savedId;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
         }
-        return savedId;
     }
 
     @Override
     public User getUser(int id) {
 
-        Session session = null;
-        Transaction transaction = null;
-        User user;
-        try {
-            session = sessionFactory.openSession();
-            transaction = session.beginTransaction();
-            user = session.get(User.class, id);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
-
-        } finally {
-            if (session != null) session.close();
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            return session.get(User.class, id);
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return null;
         }
-        return user;
     }
 
     @Override
     public boolean delete(int id) {
-        Transaction transaction = null;
-        User user;
+
         try (Session session = sessionFactory.openSession()) {
-            transaction = session.beginTransaction();
+            User user;
+            Transaction transaction = session.beginTransaction();
             user = session.get(User.class, id);
             if (user == null) {
                 return false;
             }
             session.delete(user);
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
-            throw new RuntimeException(e);
+        } catch (HibernateException e) {
+            e.printStackTrace();
         }
         return true;
     }

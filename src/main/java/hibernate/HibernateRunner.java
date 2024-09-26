@@ -2,24 +2,19 @@ package hibernate;
 
 import hibernate.dao.TicketDAOImpl;
 import hibernate.dao.UserDAOImpl;
+import hibernate.entity.Ticket;
+import hibernate.entity.User;
 import hibernate.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-
-import java.sql.SQLException;
+import homework.TicketType;
 
 public class HibernateRunner {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        try(SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-            Session session = sessionFactory.openSession()){
-            System.out.println("ok");
-        }
-//        UserDAOImpl userDAO = UserDAOImpl.getInstance();
-//        System.out.println(userDAO.getUser(2));
-//        TicketDAOImpl ticketDAO = TicketDAOImpl.getInstance();
-//        System.out.println(ticketDAO.getTicket(2));
+        UserDAOImpl userDAO = new UserDAOImpl(HibernateUtil.buildSessionFactory());
+        System.out.println(userDAO.save(new User("Oleg")));
+
+        TicketDAOImpl ticketDAO = new TicketDAOImpl(HibernateUtil.buildSessionFactory());
+        System.out.println(ticketDAO.save(new Ticket(4, TicketType.MONTH)));
+
     }
 }
