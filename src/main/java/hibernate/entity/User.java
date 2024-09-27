@@ -2,7 +2,8 @@ package hibernate.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Table(name = "users")
@@ -14,15 +15,26 @@ public class User {
     @Column(name = "name")
     private String name;
     @Column(name = "creation_date")
-    private Timestamp creationDate;
+    private LocalDate creationDate;
+    @Transient
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Ticket> userTickets;
+
+    public List<Ticket> getUserTickets() {
+        return userTickets;
+    }
+
+    public void setUserTickets(List<Ticket> userTickets) {
+        this.userTickets = userTickets;
+    }
 
     public User() {
 
     }
 
-    public User(String name) {
+    public User(String name, LocalDate creationDate) {
         this.name = name;
-
+        this.creationDate = creationDate;
     }
 
     public int getId() {
@@ -41,11 +53,11 @@ public class User {
         this.name = name;
     }
 
-    public Timestamp getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 

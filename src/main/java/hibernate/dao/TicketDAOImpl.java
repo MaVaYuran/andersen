@@ -27,9 +27,9 @@ public class TicketDAOImpl implements TicketDAO {
     public Integer save(Ticket ticket) {
 
         try (Session session = sessionFactory.openSession()) {
-            Integer savedId;
+
             Transaction transaction = session.beginTransaction();
-            savedId = (Integer) session.save(ticket);
+            Integer savedId = (Integer) session.save(ticket);
             transaction.commit();
             return savedId;
         } catch (HibernateException e) {
