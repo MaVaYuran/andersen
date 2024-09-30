@@ -1,24 +1,35 @@
-package jdbc.pojo;
+package hibernate.entity;
 
 import homework.TicketType;
-
-import java.sql.Timestamp;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+    @ManyToOne()
+    @JoinColumn(name="user_id")
+    private User user;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ticket_type", columnDefinition = "ticket_type")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private TicketType ticketType;
-    private Timestamp creationDate;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
 
     public Ticket() {
     }
 
-    public Ticket(int id, int userId, TicketType ticketType, Timestamp creationDate) {
-        this.id = id;
-        this.userId = userId;
+    public Ticket(User user, TicketType ticketType, LocalDate creationDate) {
+        this.user = user;
         this.ticketType = ticketType;
         this.creationDate = creationDate;
+
     }
 
     public int getId() {
@@ -29,12 +40,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public TicketType getTicketType() {
@@ -45,11 +56,11 @@ public class Ticket {
         this.ticketType = ticketType;
     }
 
-    public Timestamp getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -61,7 +72,7 @@ public class Ticket {
         Ticket ticket = (Ticket) o;
 
         if (id != ticket.id) return false;
-        if (userId != ticket.userId) return false;
+        if (!Objects.equals(user, ticket.user)) return false;
         if (ticketType != ticket.ticketType) return false;
         return Objects.equals(creationDate, ticket.creationDate);
     }
@@ -69,7 +80,7 @@ public class Ticket {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + userId;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (ticketType != null ? ticketType.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         return result;
@@ -79,7 +90,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                "id=" + id +
-               ", userId=" + userId +
+               ", user=" + user +
                ", ticketType=" + ticketType +
                ", creationDate=" + creationDate +
                '}';

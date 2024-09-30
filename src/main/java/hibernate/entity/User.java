@@ -1,19 +1,37 @@
-package jdbc.pojo;
+package hibernate.entity;
 
-import java.sql.Timestamp;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
-public class User  {
+@Table(name = "users")
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
-    private Timestamp creationDate;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+    @Transient
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Ticket> userTickets;
+
+    public List<Ticket> getUserTickets() {
+        return userTickets;
+    }
+
+    public void setUserTickets(List<Ticket> userTickets) {
+        this.userTickets = userTickets;
+    }
 
     public User() {
 
     }
 
-    public User(int id, String name, Timestamp creationDate) {
-       this.id = id;
+    public User(String name, LocalDate creationDate) {
         this.name = name;
         this.creationDate = creationDate;
     }
@@ -34,11 +52,11 @@ public class User  {
         this.name = name;
     }
 
-    public Timestamp getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
