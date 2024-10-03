@@ -8,6 +8,6 @@ public class Runner {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(SpringConfig.class);
 
         TicketDAOImpl ticketDAO = context.getBean(TicketDAOImpl.class);
-        ticketDAO.getTicket(2);
+        System.out.println(ticketDAO.getTicket(3));
     }
 }
