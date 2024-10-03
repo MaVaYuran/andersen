@@ -12,13 +12,13 @@
         <property name="connection.password">root</property>
 
         <!-- SQL dialect -->
-        <property name="dialect">org.by.mariayuran.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
         <!-- Display SQL in console -->
         <property name="show_sql">true</property>
 
         <!-- Create/update tables automatically -->
-        <property name="by.mariayuran.hibernate.hbm2ddl.auto">update</property>
+        <property name="by.hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapping files -->
         <mapping class="by.mariayuran.hibernate.entity.Ticket"/>

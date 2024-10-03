@@ -31,6 +31,16 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.9.0</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.projectlombok</groupId>-->
 <!--            <artifactId>lombok</artifactId>-->
@@ -82,7 +92,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        by.mariayuran.by.mariayuran.homework.TicketService
+                                        by.mariayuran.homework.TicketService
                                     </mainClass>
                                 </manifest>
                             </archive>
