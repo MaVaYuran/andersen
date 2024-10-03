@@ -2,14 +2,21 @@ package by.mariayuran;
 
 import by.mariayuran.hibernate.entity.Ticket;
 import by.mariayuran.hibernate.entity.User;
-import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 import javax.sql.DataSource;
@@ -18,6 +25,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("by.mariayuran")
 @PropertySource(value = "classpath:application.properties")
+@EnableTransactionManagement
 public class SpringConfig {
     @Bean
     public Properties hibernateProperties(
@@ -33,18 +41,15 @@ public class SpringConfig {
     }
 
     @Bean
-    public DataSource dataSource(
+    public DataSource newDataSource(
             @Value("${db.driver}") String driver,
             @Value("${db.url}") String url,
             @Value("${db.username}") String username,
             @Value("${db.password}") String password
     ) {
 
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driver);
-        dataSource.setUrl(url);
-        dataSource.setUrl(username);
-        dataSource.setPassword(password);
+        DataSource dataSource = new SingleConnectionDataSource(url,username, password, true);
+
         return dataSource;
     }
 
@@ -60,4 +65,9 @@ public class SpringConfig {
         );
         return sessionFactory;
     }
+    @Bean
+    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
+        return new HibernateTransactionManager(sessionFactory);
+    }
+
 }
