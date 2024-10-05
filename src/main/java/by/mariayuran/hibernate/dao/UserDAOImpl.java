@@ -1,15 +1,27 @@
 package by.mariayuran.hibernate.dao;
 
+import by.mariayuran.hibernate.entity.Ticket;
 import by.mariayuran.hibernate.entity.User;
-import org.hibernate.HibernateException;
+import by.mariayuran.hibernate.entity.UserStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Transactional
 public class UserDAOImpl implements UserDAO {
     private final SessionFactory sessionFactory;
+    @Autowired
+    private TicketDAO ticketDAO;
+    @Autowired
+    private UserDAO userDAO;
+
+    @Value("${app.allowUserCreateAndUpdateTicket}")
+    private boolean allowUserCreateAndUpdateTicket;
+
 
     public UserDAOImpl(SessionFactory sessionFactory) {
         if (sessionFactory == null) {
@@ -20,48 +32,47 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public Integer save(User user) {
-
+    public void save(User user) {
         try (Session session = sessionFactory.openSession()) {
-            Integer savedId;
-            Transaction transaction = session.beginTransaction();
-            savedId = (Integer) session.save(user);
-            transaction.commit();
-            return savedId;
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            return null;
+            session.save(user);
         }
     }
 
     @Override
     public User getUser(int id) {
-
         try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
             return session.get(User.class, id);
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
     @Override
     public boolean delete(int id) {
-
         try (Session session = sessionFactory.openSession()) {
             User user;
-            Transaction transaction = session.beginTransaction();
             user = session.get(User.class, id);
             if (user == null) {
                 return false;
             }
             session.delete(user);
-            transaction.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
         }
         return true;
+    }
+
+     public void activateUserAndUpdateTicket(Integer userId, Ticket ticket) {
+        try (Session session = sessionFactory.openSession()) {
+            if (!allowUserCreateAndUpdateTicket) {
+                throw new IllegalStateException("Updating user and creating ticket is disabled");
+            }
+            //User user = userDAO.getUser(userId); which way is better?
+            User user = session.get(User.class, userId);
+            if (user == null) {
+                throw new RuntimeException("User not found");
+            }
+            user.setStatus(UserStatus.ACTIVATED);
+            // userDAO.save(user); same question??
+            session.save(user);
+            ticketDAO.save(ticket);
+        }
     }
 }
 
