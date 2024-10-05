@@ -5,7 +5,6 @@ import by.mariayuran.hibernate.entity.User;
 import by.mariayuran.hibernate.entity.UserStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +13,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserDAOImpl implements UserDAO {
     private final SessionFactory sessionFactory;
-    @Autowired
-    private TicketDAO ticketDAO;
-    @Autowired
-    private UserDAO userDAO;
+
+    private final TicketDAO ticketDAO;
+
+
 
     @Value("${app.allowUserCreateAndUpdateTicket}")
     private boolean allowUserCreateAndUpdateTicket;
 
 
-    public UserDAOImpl(SessionFactory sessionFactory) {
+    public UserDAOImpl(SessionFactory sessionFactory, TicketDAO ticketDAO) {
+        this.ticketDAO = ticketDAO;
+
         if (sessionFactory == null) {
             throw new IllegalArgumentException("An argument sessionFactory cannot be null");
         }
