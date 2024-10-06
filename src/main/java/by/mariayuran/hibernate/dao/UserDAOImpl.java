@@ -16,8 +16,6 @@ public class UserDAOImpl implements UserDAO {
 
     private final TicketDAO ticketDAO;
 
-
-
     @Value("${app.allowUserCreateAndUpdateTicket}")
     private boolean allowUserCreateAndUpdateTicket;
 
@@ -58,19 +56,17 @@ public class UserDAOImpl implements UserDAO {
         }
         return true;
     }
-
+@Override
      public void activateUserAndUpdateTicket(Integer userId, Ticket ticket) {
         try (Session session = sessionFactory.openSession()) {
             if (!allowUserCreateAndUpdateTicket) {
                 throw new IllegalStateException("Updating user and creating ticket is disabled");
             }
-            //User user = userDAO.getUser(userId); which way is better?
             User user = session.get(User.class, userId);
             if (user == null) {
                 throw new RuntimeException("User not found");
             }
             user.setStatus(UserStatus.ACTIVATED);
-            // userDAO.save(user); same question??
             session.save(user);
             ticketDAO.save(ticket);
         }

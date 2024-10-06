@@ -1,5 +1,6 @@
 package by.mariayuran.hibernate.dao;
 
+import by.mariayuran.hibernate.entity.Ticket;
 import by.mariayuran.hibernate.entity.User;
 
 public interface UserDAO {
@@ -9,4 +10,5 @@ public interface UserDAO {
 
     boolean delete(int id);
 
+    void activateUserAndUpdateTicket(Integer id, Ticket ticket);
 }
