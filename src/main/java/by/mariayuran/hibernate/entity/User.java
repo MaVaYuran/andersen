@@ -22,6 +22,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     UserStatus status;
 
+    public User() {
+    }
 
     public User(String name) {
         this.name = name;
@@ -60,9 +62,7 @@ public class User {
         this.userTickets = userTickets;
     }
 
-    public User() {
 
-    }
     public UserStatus getStatus() {
         return status;
     }
