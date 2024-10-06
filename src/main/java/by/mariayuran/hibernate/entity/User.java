@@ -23,9 +23,9 @@ public class User {
     UserStatus status;
 
 
-    public User(String name, LocalDate creationDate) {
+    public User(String name) {
         this.name = name;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now();
     }
 
     public int getId() {

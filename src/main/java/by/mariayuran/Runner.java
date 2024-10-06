@@ -14,9 +14,9 @@ public class Runner {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
         TicketDAO ticketDAO = context.getBean(TicketDAO.class);
         UserDAO userDAO = context.getBean(UserDAO.class);
-        User user = new User("Ivan", LocalDate.now());
+        User user = new User("Ivan");
         userDAO.save(user);
-        Ticket ticket = new Ticket(user, TicketType.YEAR, LocalDate.now());
+        Ticket ticket = new Ticket(user, TicketType.YEAR);
         userDAO.activateUserAndUpdateTicket(user.getId(), ticket);
     }
 }
