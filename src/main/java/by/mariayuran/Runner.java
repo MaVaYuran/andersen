@@ -7,7 +7,6 @@ import by.mariayuran.hibernate.entity.User;
 import by.mariayuran.homework.TicketType;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.time.LocalDate;
 
 public class Runner {
     public static void main(String[] args) {
