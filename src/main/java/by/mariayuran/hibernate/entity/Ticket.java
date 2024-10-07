@@ -25,10 +25,10 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(User user, TicketType ticketType, LocalDate creationDate) {
+    public Ticket(User user, TicketType ticketType) {
         this.user = user;
         this.ticketType = ticketType;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now();
 
     }
 

@@ -18,22 +18,16 @@ public class User {
     @Transient
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Ticket> userTickets;
-
-    public List<Ticket> getUserTickets() {
-        return userTickets;
-    }
-
-    public void setUserTickets(List<Ticket> userTickets) {
-        this.userTickets = userTickets;
-    }
+    @Transient
+    @Enumerated(EnumType.STRING)
+    UserStatus status;
 
     public User() {
-
     }
 
-    public User(String name, LocalDate creationDate) {
+    public User(String name) {
         this.name = name;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDate.now();
     }
 
     public int getId() {
@@ -60,6 +54,22 @@ public class User {
         this.creationDate = creationDate;
     }
 
+    public List<Ticket> getUserTickets() {
+        return userTickets;
+    }
+
+    public void setUserTickets(List<Ticket> userTickets) {
+        this.userTickets = userTickets;
+    }
+
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(UserStatus status) {
+        this.status = status;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
