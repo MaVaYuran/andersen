@@ -1,6 +1,6 @@
-package by.mariayuran.hibernate.service;
+package by.mariayuran.springboot.service;
 
-import by.mariayuran.hibernate.entity.JsonTicket;
+import by.mariayuran.springboot.entity.JsonTicket;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

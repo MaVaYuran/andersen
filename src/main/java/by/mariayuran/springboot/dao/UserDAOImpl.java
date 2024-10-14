@@ -1,8 +1,8 @@
-package by.mariayuran.hibernate.dao;
+package by.mariayuran.springboot.dao;
 
-import by.mariayuran.hibernate.entity.Ticket;
-import by.mariayuran.hibernate.entity.User;
-import by.mariayuran.hibernate.entity.UserStatus;
+import by.mariayuran.springboot.entity.Ticket;
+import by.mariayuran.springboot.entity.User;
+import by.mariayuran.springboot.entity.UserStatus;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;

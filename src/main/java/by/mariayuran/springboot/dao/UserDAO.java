@@ -1,7 +1,7 @@
-package by.mariayuran.hibernate.dao;
+package by.mariayuran.springboot.dao;
 
-import by.mariayuran.hibernate.entity.Ticket;
-import by.mariayuran.hibernate.entity.User;
+import by.mariayuran.springboot.entity.Ticket;
+import by.mariayuran.springboot.entity.User;
 
 public interface UserDAO {
     void save(User user);

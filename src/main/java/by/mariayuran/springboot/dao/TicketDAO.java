@@ -1,7 +1,7 @@
-package by.mariayuran.hibernate.dao;
+package by.mariayuran.springboot.dao;
 
 import by.mariayuran.homework.TicketType;
-import by.mariayuran.hibernate.entity.Ticket;
+import by.mariayuran.springboot.entity.Ticket;
 
 import java.util.List;
 
