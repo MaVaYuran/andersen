@@ -3,7 +3,7 @@ package by.mariayuran.springboot.dao;
 import by.mariayuran.springboot.entity.Ticket;
 import by.mariayuran.springboot.entity.User;
 import by.mariayuran.springboot.entity.UserStatus;
-import by.mariayuran.springboot.repositories.TicketsRepository;
+import by.mariayuran.springboot.repositories.TicketRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,13 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserDAOImpl implements UserDAO {
     private final SessionFactory sessionFactory;
 
-    private final TicketsRepository ticketDAO;
+    private final TicketRepository ticketDAO;
 
     @Value("${app.allowUserCreateAndUpdateTicket}")
     private boolean allowUserCreateAndUpdateTicket;
 
 
-    public UserDAOImpl(SessionFactory sessionFactory, TicketsRepository ticketDAO) {
+    public UserDAOImpl(SessionFactory sessionFactory, TicketRepository ticketDAO) {
         this.ticketDAO = ticketDAO;
 
         if (sessionFactory == null) {

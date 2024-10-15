@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TicketsRepository extends CrudRepository<Ticket, Integer> {
+public interface TicketRepository extends CrudRepository<Ticket, Integer> {
 }
