@@ -1,4 +1,4 @@
-package by.mariayuran.hibernate.entity;
+package by.mariayuran.springboot.entity;
 
 public enum UserStatus {
     ACTIVATED,
