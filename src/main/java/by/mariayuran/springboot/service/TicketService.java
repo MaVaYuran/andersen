@@ -25,7 +25,11 @@ public class TicketService {
         if (ticket.getUser() == null) {
             throw new RuntimeException("User must not be null");
         }
-        return ticketRepository.save(ticket);
+        try {
+            return ticketRepository.save(ticket);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Error saving ticket", e);
+        }
     }
 
     public Ticket updateTicket(int id, Ticket ticket) {

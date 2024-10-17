@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -42,7 +40,6 @@ public class TicketServiceTest {
     void testCreateTicket_Positive() {
         when(ticketRepository.save(any(Ticket.class))).thenReturn(ticket);
         Ticket createdTicket = ticketService.createTicket(ticket);
-        assertNotNull(createdTicket);
         assertEquals(ticket, createdTicket);
         verify(ticketRepository).save(ticket);
     }
@@ -58,7 +55,7 @@ public class TicketServiceTest {
 
     @Test
     void testCreateTicket_CornerCase() {
-        ticket.setUser(null); // Assuming user is required
+        ticket.setUser(null);
         Exception exception = assertThrows(RuntimeException.class, () -> {
             ticketService.createTicket(ticket);
         });
@@ -69,7 +66,6 @@ public class TicketServiceTest {
     void testGetTicket_Positive() {
         when(ticketRepository.findById(anyInt())).thenReturn(Optional.of(ticket));
         Ticket fetchedTicket = ticketService.getTicket(1);
-        assertNotNull(fetchedTicket);
         assertEquals(ticket, fetchedTicket);
     }
 
@@ -87,7 +83,6 @@ public class TicketServiceTest {
         when(ticketRepository.save(ticket)).thenReturn(ticket);
 
         Ticket updatedTicket = ticketService.updateTicket(1, ticket);
-        assertNotNull(updatedTicket);
         assertEquals(ticket, updatedTicket);
     }
 
