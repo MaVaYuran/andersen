@@ -4,5 +4,9 @@ jobs:
   print:
     runs-on: windows-latest
     steps:
-      -name: Print to console
-        run: echo GH Actions!
+      - name: print a few lines
+        run: |
+         echo first Line
+         echo Second Line
+      - name: print to console
+        run: echo Hello gh actions!
